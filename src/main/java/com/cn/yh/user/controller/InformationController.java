@@ -34,7 +34,7 @@ public class InformationController {
 
     /**
      * 添加视频
-     *123456
+     *12
      * @return
      */
     @RequestMapping("/addVideo")
