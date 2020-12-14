@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>工点管理</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../js/layui/style/admin.css" media="all">
+    <style>
+        html, body {
+            height: 100%;
+            min-height: 635px;
+        }
+        .layui-table-tool{
+            background: #fff;
+        }
+        .layui-table-tool .layui-table-tool-temp{
+            padding-right: 0;
+        }
+        .xm-select-dl {
+            bottom: auto !important;
+            margin-bottom: 10px;
+        }
+        .layui-form-item{
+            margin-bottom: 13px;
+        }
+        .layui-input-block {
+            margin-left: 120px;
+        }
+        .layui-form-label {
+            padding: 9px 10px;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="layui-fluid" style="height: 95%;">
+    <div class="layui-card" style="height: 100%;">
+        <div class="layui-card-body">
+            <table class="layui-table" id="worksiteTable" lay-filter="worksiteTable"></table>
+        </div>
+    </div>
+</div>
+
+<div id="addZ" style="display: none;">
+    <div style="margin: 15px 0 15px 40px;">
+        <button type="button" class="layui-btn layui-btn-normal" id="searchDwg">上传图纸</button>
+        <button type="button" class="layui-btn" id="searchMod">上传模型</button>
+    </div>
+    <form class="layui-form addZH" action="" style="padding-right: 30px;">
+        <div class="layui-form-item" style="margin-top: 15px;">
+            <label class="layui-form-label">工点名称</label>
+            <div class="layui-input-block">
+                <input id="workPoint" type="text" name="workPoint" required  lay-verify="required" placeholder="请输入工点名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图纸ID</label>
+            <div class="layui-input-block">
+                <input id="drawingN" type="text" name="drawingN" required  lay-verify="required" readonly placeholder="请输入图纸ID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">模型ID</label>
+            <div class="layui-input-block">
+                <input id="modelNameN" type="text" name="modelNameN" required  lay-verify="required" readonly placeholder="请输入模型ID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="addZHForm">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="showDrawings" style="display: none;">
+    <div id="2DBox" style="width: 900px;height: 700px;"></div>
+</div>
+<div id="showModel" style="position: absolute;top: -700px;">
+    <div id="3DBox" style="width: 900px;height: 700px;"></div>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="showD">查看图纸</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="showM" style="color: #fff;">查看模型</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">
+            <i class="layui-icon">&#xe654;</i>新增工点
+        </button>
+    </div>
+</script>
+
+<script src="https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader@latest-release.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/plupload.full.min.js"></script>
+<script src="js/worksite.js"></script>
+</body>
+
+</html>

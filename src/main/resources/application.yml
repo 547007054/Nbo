@@ -1,0 +1,85 @@
+server:
+  port: 8015
+  servlet:
+    session:
+      timeout: 120
+    context-path: /Nbo
+  tomcat:
+    remote-ip-header: x-forward-for
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+    background-processor-delay: 30
+
+spring:
+  application:
+    name: demo
+  profiles:
+    active: @profileActive@
+  main:
+    allow-bean-definition-overriding: true
+  aop:
+    auto: true
+    proxy-target-class: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  mvc:
+    servlet:
+      load-on-startup: 1
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+# 数据库配置
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://119.23.243.224:1433;DatabaseName=Nbo
+    username: sa
+    password: HByh1234#
+# redis配置
+  redis:
+    host: 127.0.0.1
+    password:
+    database: 10
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 80
+        min-idle: 2
+        max-idle: 20
+        max-wait: 10000ms
+      shutdown-timeout: 100ms
+    jedis:
+      pool:
+        max-active: 80
+        max-wait: 10000
+        max-idle: 20
+        min-idle: 2
+    timeout: 30000
+# myBaits-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.cn.yh.user.entity
+  configuration:
+    jdbc-type-for-null: null
+    auto-mapping-behavior: full
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    refresh: true
+    banner: false
+    db-config:
+      id-type: AUTO
+      capital-mode: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+

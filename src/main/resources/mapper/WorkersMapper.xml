@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.yh.user.mapper.WorkersMapper">
+
+	<!-- 工长信息  劳务人员信息-->
+	<select id="findMaster" resultType="Masterinfo">
+		select * from Masterinfo
+	</select>
+	<update id="updateMaster"
+			parameterType="Masterinfo">
+		update Masterinfo set
+			foreman=#{foreman},
+			company=#{company},
+			phone=#{phone},
+			address=#{address},
+			territory=#{territory},
+			team=#{team},
+			number=#{number},
+			foreignd=#{foreignd},
+			picture=#{picture}
+		    where id =#{id}
+	</update>
+	<delete id="deleteMaster" parameterType="Integer">
+		delete from Masterinfo where
+		id=#{id}
+	</delete>
+	<insert id="addMaster"
+			parameterType="Masterinfo">
+		insert into Masterinfo (
+		foreman,
+		company,
+		phone,
+		address,
+		territory,
+		team,
+		number,
+		foreignd,
+		picture
+		)
+		values
+		(
+		#{foreman},
+		#{company},
+		#{phone},
+		#{address},
+		#{territory},
+		#{team},
+		#{number},
+		#{foreignd},
+		#{picture}
+		)
+	</insert>
+
+	<select id="findWorkers" resultType="Workers">
+		select * from Workers
+	</select>
+	<insert id="addWorkers"
+			parameterType="Workers">
+		insert into Workers (
+		name,
+		type,
+		sex,
+		politics,
+		cardId,
+		site,
+		contact,
+		wage,
+		state,
+		foreman
+		)
+		values
+		(
+		#{name},
+		#{type},
+		#{sex},
+		#{politics},
+		#{cardId},
+		#{site},
+		#{contact},
+		#{wage},
+		#{state},
+		#{foreman}
+		)
+	</insert>
+	<delete id="deleteWorkers" parameterType="Integer">
+		delete from Workers where
+		id=#{id}
+	</delete>
+	<update id="updateWorkers"
+			parameterType="Workers">
+		update Workers set
+			name=#{name},
+			type=#{type},
+			sex=#{sex},
+			politics=#{politics},
+			cardId=#{cardId},
+			site=#{site},
+			contact=#{contact},
+			wage=#{wage},
+			state=#{state},
+			foreman=#{foreman}
+		    where id =#{id}
+	</update>
+
+	<select id="findforeman" resultType="String">
+		select distinct foreman from Masterinfo where foreman = #{foreman}
+	</select>
+	<select id="findByWorkers" resultType="Workers">
+		select * from Workers where foreman = #{foreman}
+	</select>
+	<select id="findByMaster" resultType="Masterinfo">
+		select * from Masterinfo where foreman = #{foreman}
+	</select>
+
+
+
+</mapper>

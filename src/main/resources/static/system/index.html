@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>项目信息</title>
+    <link rel="stylesheet" href="../js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../js/layui/style/admin.css" media="all">
+    <link rel="stylesheet" href="../css/iconfont/iconfont.css">
+    <style>
+        .layui-side-menu .layui-nav .layui-nav-item i {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            margin-top: -19px;
+            line-height: 40px;
+        }
+        .layadmin-side-shrink .layui-layout-admin .layui-side-scroll .layui-logo{
+            width: 40px;
+            height: 30px;
+            border-radius: 50%;
+            background: url() center center;
+            background-size: cover;
+            margin: 10px 10px;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="../js/logout.js"></script>
+<body class="layui-layout-body">
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                <li class="layui-nav-item" style="margin-right: 15px;" lay-unselect>
+                    <a href="javascript:;">
+                        <cite class="username"></cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd style="text-align: center;">
+                            <a onclick="logout()">退出登录</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+                    <a href="javascript:;">
+                        <i class="layui-icon layui-icon-more-vertical"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo">
+                    <span>
+                        <a id="title" href="../index.html" style="font-weight: 700;">宁波市轨道交通TJ3215标</a>
+                    </span>
+                </div>
+
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+                    <li data-name="project" class="layui-nav-item">
+                        <a href="javascript:;" lay-direction="2">
+                            <i class="iconfont icon-gongcheng2"></i>
+                            <cite>工程管理</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="projectInfo">
+                                <a lay-href="project/projectInfo.html">项目概览</a>
+                            </dd>
+                            <dd data-name="worksite">
+                                <a lay-href="project/worksite.html">工点管理</a>
+                            </dd>
+                            <dd data-name="contractors">
+                                <a lay-href="project/contractors.html">参建单位</a>
+                            </dd>
+                            <dd data-name="system">
+                                <a lay-href="project/system.html">制度宣贯</a>
+                            </dd>
+                            <dd data-name="log">
+                                <a lay-href="project/log.html">施工日志</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="labor" class="layui-nav-item">
+                        <a href="javascript:;" lay-direction="2">
+                            <i class="iconfont icon-iconfinder_m-_"></i>
+                            <cite>劳务管理</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="master">
+                                <a lay-href="labor/master.html">工长管理</a>
+                            </dd>
+                            <dd data-name="workers">
+                                <a lay-href="labor/workers.html">劳务人员管理</a>
+                            </dd>
+                            <dd data-name="inOut">
+                                <a lay-href="labor/inOut.html">进出场管理</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <!--<li data-name="progress" class="layui-nav-item">
+                        <a href="javascript:;" lay-direction="2">
+                            <i class="iconfont icon-jinduguanli1"></i>
+                            <cite>进度管理</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="showProgress">
+                                <a lay-href="progress/showProgress.html">进度展示</a>
+                            </dd>
+                            <dd data-name="fillProgress">
+                                <a lay-href="progress/fillProgress.html">进度录入</a>
+                            </dd>
+                        </dl>
+                    </li>-->
+                    <li data-name="monitor" class="layui-nav-item">
+                        <a href="javascript:;" lay-direction="2">
+                            <i class="iconfont icon-jiankong"></i>
+                            <cite>监控管理</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="monitor">
+                                <a lay-href="monitor/monitor.html">监控视频</a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein">
+                            <dd layadmin-event="closeThisTabs">
+                                <a href="javascript:;">关闭当前标签页</a>
+                            </dd>
+                            <dd layadmin-event="closeOtherTabs">
+                                <a href="javascript:;">关闭其它标签页</a>
+                            </dd>
+                            <dd layadmin-event="closeAllTabs">
+                                <a href="javascript:;">关闭全部标签页</a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this">
+                        <i class="layui-icon layui-icon-home"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe src="project/projectInfo.html" frameborder="0" class="layadmin-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../js/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+    layui.use('jquery', function () {
+        var $ = layui.$;
+        if (!sessionStorage.getItem("login")) {
+            window.location.href = "../login.html"
+        }
+        $(".layui-nav-item a .username").html(sessionStorage.getItem("login"));
+    })
+</script>
+</body>
+
+</html>
