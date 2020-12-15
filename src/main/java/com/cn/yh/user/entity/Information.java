@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class Information implements Serializable {
 
     private int id;
-    private String introduction;//项目简介
+    private String introduction;//项目0简介
     private String picture;//项目图片
     private String roam;//项目漫游视频
 
