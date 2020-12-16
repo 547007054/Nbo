@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <title>宁波市轨道交通TJ3215标</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/app.css"/>
+</head>
+<style>
+    a{text-decoration: none!important;}
+    .layui-breadcrumb{
+        padding: 5px 15px 0 45px;
+        display: inline-block;
+    }
+    .layui-breadcrumb span{
+        font-size: 18px;
+        color: #fff;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .layui-breadcrumb .active{
+        color: #5FB878;
+    }
+    .col-lg-50{
+        float: left;
+    }
+    #left,#right{
+        height: 90%;
+        border: solid 1px #aaa;
+    }
+    #left{
+        margin-left: 7%;
+        margin-right: 3%;
+    }
+    #right{
+        margin-left: 3%;
+        margin-right: 7%;
+    }
+
+</style>
+
+<body class="bg01">
+<div class="top">
+    <div class="topLeft">
+        <iframe allowtransparency="true" frameborder="0" width="180" height="36" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=0&v=0&d=1&bd=0&k=&f=ffffff&ltf=ffffff&htf=ffffff&q=1&e=1&a=0&c=58465&w=180&h=36&align=center"></iframe>
+    </div>
+    <div class="topMiddle">
+        <div class="topTitle">宁波市轨道交通TJ3215标</div>
+        <div class="topTitle1">智 慧 管 理 平 台</div>
+    </div>
+    <div class="topRight">
+        <div class="topRightBtn">后台管理</div>
+    </div>
+</div>
+<div class="menu">
+    <div class="menuL">
+        <span><a href="page/project.html">工程管理</a></span>
+        <span><a href="page/labor.html">劳务管理</a></span>
+        <span class="menuActive"><a style="color: rgb(235,97,0);" href="index.html">BIM协同管理</a></span>
+    </div>
+    <div class="menuM">
+    </div>
+    <div class="menuR">
+        <span><a href="page/positioning.html">人员定位</a></span>
+        <span><a href="page/monitoring.html">监控管理</a></span>
+        <span><a href="page/qualitySafetyPush.html">工艺安全质量推送</a></span>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row fill-h">
+            <!--左侧-->
+            <div class="col-lg-30 fill-h">
+                <!--劳务管理-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc">
+                            <div class="fill-h-20 title1">
+                                劳务管理
+                            </div>
+                            <div class="tool">
+                                <div id="lwChart" style="height: 100%;width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--实时监控-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc">
+                            <div class="fill-h-20 title1">
+                                实时监控
+                            </div>
+                            <div class="tool">
+                                <img src="img/bgImg.jpg" alt="" style="width: 96%;height: 99%;margin-left: 2%;"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--视频-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc" >
+                            <div class="fill-h-20 title1">
+                                视频
+                            </div>
+                            <div class="tool">
+                                <video class="video" autoplay="autoplay" loop="loop" muted="muted" style="height: 99%;width: 96%;margin-left: 2%;" controls>
+                                    <source src="" type="video/mp4" />
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--右侧-->
+            <div class="col-lg-70 fill-h">
+                <!--二三维联动-->
+                <div class="xpanel-wrapper xpanel-wrapper-82">
+                    <div class="xpanel">
+                        <div class="fill-h xpanel-bg2 gbc">
+                            <div class="fill-h-20 title2">
+                                二三维联动
+                            </div>
+                            <div class="tool">
+                                <div>
+                                    <span class="layui-breadcrumb">
+                                    </span>
+                                </div>
+                                <div class="fill-h col-lg-50">
+                                    <div id="left"></div>
+                                </div>
+                                <div class="fill-h col-lg-50">
+                                    <div id="right"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--晴雨表-->
+                <div class="xpanel-wrapper xpanel-wrapper-18">
+                    <div class="xpanel">
+                        <div class="fill-h xpanel-bg1 gbc">
+                            <div class="fill-h-20 title1" style="line-height: 26px;">
+                                晴雨表
+                            </div>
+                            <div class="tool" style="height: 74%;">
+                                <iframe allowtransparency="true" frameborder="0" width="1300" height="86" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=0&d=5&bd=0&k=000000&f=ffffff&ltf=009944&htf=cc0000&q=1&e=1&a=0&c=58465&w=875&h=98&align=center"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/layui/layui.all.js"></script>
+<script type="text/javascript" src="js/layui/layui.js"></script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/echarts-3.8.5.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader@latest-release.js" charset="utf-8"></script>
+<script  type="text/javascript">
+    $(function () {
+        if (!sessionStorage.getItem("login")) {
+            window.location.href = "./login.html"
+        }
+    });
+    $(".topRightBtn").click(function(){
+        window.location.href = "system/index.html";
+    });
+    //查询工点名
+    $.ajax({
+        url: 'Point/findWorkPointManage',
+        type: 'get',
+        async: false,
+        dataType: 'json',
+        success: function (res) {
+            var data = res.data;
+            for(var i = 0;i < data.length;i ++){
+                if(i == 0){
+                    $(".layui-breadcrumb").append('<span class="active">'+data[i].workPoint+'</span>');
+                }else{
+                    $(".layui-breadcrumb").append('<span>'+data[i].workPoint+'</span>');
+                }
+            }
+        }
+    });
+    //根据工点名渲染模型
+    renderModel($(".active").html());
+    //工点点击
+    layui.use('element', function(){
+        var element = layui.element;
+        $(".layui-breadcrumb span").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+            $("#left").html('');
+            $("#right").html('');
+            renderModel($(this).html());
+        });
+    });
+    //渲染模型
+    function renderModel(data){
+        console.log(data);
+        /*对接口后，删除token*/
+        var token1/* = '509315ad406e42c7863a9d1916e65c6f'*/;
+        var token2/* = '5fa6143d3e8b4caabb92c2cf3f7c99cc'*/;
+        //获取token
+        $.ajax({
+            url: 'Point/queryName',
+            type: 'get',
+            async: false,
+            dataType: 'json',
+            data: {
+                workPoint: data
+            },
+            success: function (res) {
+                token1 = JSON.parse(res.data1).data;//获取图纸的token
+                token2 = JSON.parse(res.data).data;//获取模型的token
+            }
+        });
+        if(token1 != '' && token2 != ''){
+            var viewer2D;
+            var app2D;
+            var viewer3D;
+            var app3D;
+            var viewToken1 = token1;
+            var viewToken2 = token2;
+            /*图纸*/
+            var loaderConfig1 = new BimfaceSDKLoaderConfig();
+            loaderConfig1.viewToken = viewToken1;
+            BimfaceSDKLoader.load(loaderConfig1, successCallback2D, failureCallback2D);
+            function successCallback2D(viewMetaData) {
+                var domShow = document.getElementById('left');
+                var WebAppConfig = new Glodon.Bimface.Application.WebApplicationDrawingConfig();
+                WebAppConfig.domElement = domShow;
+                app2D = new Glodon.Bimface.Application.WebApplicationDrawing(WebAppConfig);
+                app2D.load(viewToken1);
+                viewer2D = app2D.getViewer();
+            }
+            function failureCallback2D(error) {
+                console.log(error);
+            }
+
+            /*模型*/
+            var loaderConfig2 = new BimfaceSDKLoaderConfig();
+            loaderConfig2.viewToken = viewToken2;
+            BimfaceSDKLoader.load(loaderConfig2, successCallback3D, failureCallback3D);
+            function successCallback3D(viewMetaData) {
+                var domShow = document.getElementById('right');
+                var webAppConfig = new Glodon.Bimface.Application.WebApplication3DConfig();
+                webAppConfig.domElement = domShow;
+                app3D = new Glodon.Bimface.Application.WebApplication3D(webAppConfig);
+                app3D.addView(viewToken2);
+                viewer3D = app3D.getViewer();
+            }
+
+            function failureCallback3D(error) {
+                console.log(error);
+            }
+        }
+    }
+</script>
+</body>
+</html>

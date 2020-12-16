@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>施工日志</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../js/layui/style/admin.css" media="all">
+    <style>
+        html, body {
+            height: 100%;
+            min-height: 635px;
+        }
+        .fl{
+            float: left;
+            width: 17%;
+            height: 100%;
+            border-right: solid 1px #ddd;
+            overflow-y: auto;
+        }
+        .fr{
+            float: left;
+            width: 82.8%;
+            height: 100%;
+            padding: 0 30px 0 70px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .fl .parent div{
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .fl .parent div span{
+            margin-left: 15px;
+        }
+        .fl .parent div.active{
+            background: #009688;
+            color: #fff;
+        }
+        .fr a{
+            width: 50px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            position: absolute;
+            left: 18%;
+            font-size: 16px;
+            border: solid 1px #ccc;
+            border-radius: 3px;
+        }
+        .fr #page-content{
+            height: 99.4%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="layui-fluid" style="height: 96%;">
+    <div class="layui-card" style="height: 100%;">
+        <div class="layui-card-body" style="height: 97.5%;">
+            <div class="fl">
+                <div class="parent">
+                </div>
+            </div>
+            <div class="fr">
+                <a class="word-export" href="javascript:void(0)">导出</a>
+                <div id="page-content">
+                    <style>
+                        table {
+                            border: 1px solid #aaa !important;
+                            border-collapse: collapse;
+                            width: 100%;
+                            margin: auto;
+                        }
+                        table tr td {
+                            border: 1px solid #aaa !important;
+                            text-align: center;
+                        }
+                        table tr th {
+                            border: 1px solid #aaa !important;
+                        }
+                        .productionRecord,.workRecord,.inRecord{
+                            height: 145px;
+                            text-align: left;
+                            line-height: 20px;
+                            //vertical-align: inherit;
+                            vertical-align: top;
+                        }
+                    </style>
+                    <div style="font-size: 20px;margin: 5px 0;text-align: center;">宁 波 市 轨 道 交 通 工 程 建 设 项 目</div>
+                    <div style="text-align: center;">承包单位：<span style="text-decoration: underline;">中铁十九局集团有限公司</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合同号：<span style="text-decoration: underline;">ZZB-032-SG-20041</span></div>
+                    <div style="text-align: center;">监理单位：<span style="text-decoration: underline;">宁波国际投资咨询有限公司</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编号：<span style="text-decoration: underline;">S3215/A-017</span></div>
+                    <div style="font-size: 28px;font-weight: bold;margin: 15px 0 15px 560px;">施 工 日 志&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="margin-left:70px;font-size: 18px;font-weight: normal;">A-017</span></div>
+                    <div style="font-size: 16px;text-align: right;margin-right: 50px;">日期：<span class="year"></span>年<span class="month"></span>月<span class="day"></span>日<span></span>&nbsp;&nbsp;&nbsp;&nbsp;星期<span class="week"></span></div>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                        </colgroup>
+                        <tbody>
+                            <tr style="height: 39px;">
+                                <td></td>
+                                <td>天 气 状 况</td>
+                                <td>风  力</td>
+                                <td>最高/最底温度（℃）</td>
+                                <td>备  注</td>
+                            </tr>
+                            <tr style="height: 39px;">
+                                <td>白 天</td>
+                                <td class="weatherD"></td>
+                                <td class="windD"></td>
+                                <td class="temperatureD"></td>
+                                <td class="remarkD"></td>
+                            </tr>
+                            <tr style="height: 39px;">
+                                <td>夜 间</td>
+                                <td class="weatherN"></td>
+                                <td class="windN"></td>
+                                <td class="temperatureN"></td>
+                                <td class="remarkN"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="productionRecord"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="workRecord"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="inRecord"></td>
+                            </tr>
+                            <tr style="height: 39px;">
+                                <td>工程负责人</td>
+                                <td class="principal"></td>
+                                <td>记录人</td>
+                                <td class="recorder" colspan="2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/FileSaver.js"></script>
+<script src="../../js/jquery.wordexport.js"></script>
+<script src="js/log.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>进度展示</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../js/layui/style/admin.css" media="all">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        #container{
+            height: 95%;
+        }
+        .main {
+            display: inline-flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 99%;
+            width: 49.7%
+        }
+        .model {
+            flex: 1
+        }
+        .title {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background: #fff;
+            padding-left: 13px;
+            font-size: 13px;
+        }
+        .layui-breadcrumb{
+            padding: 5px 15px;
+            display: inline-block;
+        }
+        .layui-breadcrumb span{
+            font-size: 18px;
+            /*color: #000;*/
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .layui-breadcrumb .active{
+            color: #5FB878;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span class="layui-breadcrumb">
+        <!--<span class="active">A区</span>-->
+        <!--<span>B区</span>-->
+        <!--<span>芳林园</span>-->
+    </span>
+</div>
+<div id="container">
+<div class="main left">
+    <div class='title'>
+        <span>计划进度</span>
+    </div>
+    <div class='model' id="planBox"></div>
+</div>
+<div class="main right">
+    <div class='title'>
+        <span>实际进度</span>
+    </div>
+    <div class='model' id="actualBox"></div>
+</div>
+</div>
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader@latest-release.js" charset="utf-8"></script>
+<script>
+    //查询工点名
+    $.ajax({
+        url: '../../Schedule/findWorkPointManage',
+        type: 'get',
+        async: false,
+        dataType: 'json',
+        success: function (res) {
+            var data = res.data;
+            for(var i = 0;i < data.length;i ++){
+                if(i == 0){
+                    $(".layui-breadcrumb").append('<span class="active">'+data[i].workPoint+'</span>');
+                }else{
+                    $(".layui-breadcrumb").append('<span>'+data[i].workPoint+'</span>');
+                }
+            }
+        }
+    });
+    //根据工点名渲染模型
+    renderModel($(".active").html());
+    //工点点击
+    layui.use('element', function(){
+        var element = layui.element;
+        $(".layui-breadcrumb span").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+            $("#planBox").html('');
+            $("#actualBox").html('');
+            renderModel($(this).html());
+        });
+    });
+
+    //渲染模型
+    function renderModel(data){
+        console.log(data);
+        var planBoxArr = [];
+        var actualBoxArr = [];
+        //var planBoxArr = [500163,500165,496391,500106,500108,500202,463376,496037,496035,496033,496031,496029,496027,496026,496025,495996]
+        //var actualBoxArr = [500163,500165,496391,500106,500108,500202,463376,496037,496035,496033,496031,496029,496027]
+        var token = '';
+        $.ajax({
+            url: '../../Schedule/findSchedule',
+            type: 'get',
+            async: false,
+            dataType: 'json',
+            data: {
+                workPoint: data
+            },
+            success: function (res) {
+                var data1 = res.data;//计划模型状态信息
+                var data2 = res.data1;//实际模型状态信息
+                for(var i = 0;i < data1.length;i++){
+                    planBoxArr.push(data1[i].sId);
+                }
+                for(var i = 0;i < data2.length;i++){
+                    actualBoxArr.push(data2[i].sId);
+                }
+            }
+        });
+        $.ajax({
+            url: '../../Schedule/findViewToken',
+            type: 'get',
+            async: false,
+            dataType: 'json',
+            data: {
+                workPoint: data
+            },
+            success: function (res) {
+                token = JSON.parse(res.data).data;//获取模型的token
+            }
+        });
+        if(token != ''){
+            var plan3D;
+            var planApp;
+            var actual3D;
+            var actualApp;
+            var viewToken = token;
+            // var viewToken = '4e9b8c892f6b42b39b1a68a66c360370';
+
+            // 初始化显示组件
+            var options = new BimfaceSDKLoaderConfig();
+            options.viewToken = viewToken;
+
+
+            BimfaceSDKLoader.load(options, planSuccessCallback, planFailureCallback);
+
+            function planSuccessCallback(viewMetaData) {
+                if (viewMetaData.viewType == "3DView") {
+                    // ======== 判断是否为3D模型 ========
+                    // 获取DOM元素
+                    var dom4restore = document.getElementById('planBox');
+                    var webAppConfig = new Glodon.Bimface.Application.WebApplication3DConfig();
+                    webAppConfig.domElement = dom4restore;
+                    // 创建WebApplication
+                    planApp = new Glodon.Bimface.Application.WebApplication3D(webAppConfig);
+                    // 添加待显示的模型
+                    planApp.addView(viewToken);
+                    // 从WebApplication获取viewer3D对象
+                    plan3D = planApp.getViewer();
+                    // 监听添加view完成的事件
+                    plan3D.addEventListener(Glodon.Bimface.Viewer.Viewer3DEvent.ViewAdded, function () {
+                        BimfaceSDKLoader.load(options, actualSuccessCallback, actualFailureCallback);
+                        //调用viewer3D对象的Method，可以继续扩展功能
+                        //自适应屏幕大小
+                        window.onresize = function () {
+                            plan3D.resize(document.documentElement.clientWidth, document.documentElement.clientHeight - 40)
+                        };
+                        //渲染3D模型
+                        planOverrideComponentsColorById();
+                        plan3D.render();
+                    });
+                }
+            }
+
+            function planFailureCallback(error) {
+                console.log(error);
+            }
+
+            //********************根据Id给构件着色*********************
+            function planOverrideComponentsColorById() {
+                var color1 = new Glodon.Web.Graphics.Color("#00FF00", 0.8);
+                plan3D.overrideComponentsColorById(planBoxArr, color1);
+                plan3D.render();
+            }
+
+            //BimfaceSDKLoader.load(options, actualSuccessCallback, actualFailureCallback);
+
+            function actualSuccessCallback(viewMetaData) {
+                if (viewMetaData.viewType == "3DView") {
+                    // ======== 判断是否为3D模型 ========
+                    // 获取DOM元素
+                    var dom4restore = document.getElementById('actualBox');
+                    var webAppConfig = new Glodon.Bimface.Application.WebApplication3DConfig();
+                    webAppConfig.domElement = dom4restore;
+                    // 创建WebApplication
+                    actualApp = new Glodon.Bimface.Application.WebApplication3D(webAppConfig);
+                    // 添加待显示的模型
+                    actualApp.addView(viewToken);
+                    // 从WebApplication获取viewer3D对象
+                    actual3D = actualApp.getViewer();
+                    // 监听添加view完成的事件
+                    actual3D.addEventListener(Glodon.Bimface.Viewer.Viewer3DEvent.ViewAdded, function () {
+                        //调用viewer3D对象的Method，可以继续扩展功能
+                        //自适应屏幕大小
+                        window.onresize = function () {
+                            actual3D.resize(document.documentElement.clientWidth, document.documentElement.clientHeight - 40)
+                        };
+                        //渲染3D模型
+                        actualOverrideComponentsColorById();
+                        actual3D.render();
+                    });
+                }
+            }
+
+            function actualFailureCallback(error) {
+                console.log(error);
+            }
+
+            //********************根据Id给构件着色*********************
+            function actualOverrideComponentsColorById() {
+                var color1 = new Glodon.Web.Graphics.Color("#00FF00", 0.8);
+                actual3D.overrideComponentsColorById(actualBoxArr, color1);
+                actual3D.render();
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

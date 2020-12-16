@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.yh.user.mapper.InformationMapper">
+
+
+    <select id="findInformation" resultType="Information">
+		select * from Information
+	</select>
+
+    <select id="findNum" resultType="Integer">
+		select count(*) from Information
+	</select>
+
+    <insert id="addInformation"
+            parameterType="Information">
+		insert into Information (
+		introduction,
+		picture,
+		roam
+		)
+		values
+		(
+		#{introduction},
+		#{picture},
+		#{roam}
+		)
+	</insert>
+
+    <update id="updateInformation"
+            parameterType="Information">
+		update Information set
+			introduction=#{introduction},
+			picture=#{picture},
+			roam=#{roam}
+		    where id =#{id}
+	</update>
+
+    <!--    参建单位-->
+    <select id="findParticipating" resultType="Participating">
+		select * from Participating
+	</select>
+
+    <select id="findnumber" resultType="Integer">
+		select count(*) from Participating where name =#{name} and units=#{units}
+	</select>
+
+    <insert id="addParticipating"
+            parameterType="Participating">
+		insert into Participating (
+		name,
+		units
+		)
+		values
+		(
+		#{name},
+		#{units}
+		)
+	</insert>
+    <delete id="deleteParticipating" parameterType="Integer">
+		delete from Participating where
+		id=#{id}
+	</delete>
+
+    <!--    文档pdf-->
+    <insert id="addVideo"
+            parameterType="Video">
+		insert into Video (
+		total,
+		content1
+		)
+		values
+		(
+		#{total},
+		#{content1}
+		)
+	</insert>
+
+    <select id="findVideo" resultType="Video">
+		select * from Video
+	</select>
+
+    <select id="findTop" resultType="Video">
+		select top 1 * from Video  order by id desc
+	</select>
+    <delete id="deleteVideo" parameterType="Integer">
+		delete from Video where
+		id=#{id}
+	</delete>
+
+</mapper>

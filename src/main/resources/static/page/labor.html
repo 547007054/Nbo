@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <title>宁波市轨道交通TJ3215标</title>
+    <link rel="stylesheet" href="../js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/app.css"/>
+    <link rel="stylesheet" href="css/labor.css"/>
+</head>
+
+
+<body class="bg01">
+<div class="top">
+    <div class="topLeft">
+        <iframe allowtransparency="true" frameborder="0" width="180" height="36" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=0&v=0&d=1&bd=0&k=&f=ffffff&ltf=ffffff&htf=ffffff&q=1&e=1&a=0&c=58465&w=180&h=36&align=center"></iframe>
+    </div>
+    <div class="topMiddle">
+        <div class="topTitle">宁波市轨道交通TJ3215标</div>
+        <div class="topTitle1">智 慧 管 理 平 台</div>
+    </div>
+    <div class="topRight">
+        <div class="topRightBtn">后台管理</div>
+    </div>
+</div>
+<div class="menu">
+    <div class="menuL">
+        <span><a href="project.html">工程管理</a></span>
+        <span class="menuActive"><a style="color: rgb(235,97,0);" href="labor.html">劳务管理</a></span>
+        <span><a href="../index.html">BIM协同管理</a></span>
+    </div>
+    <div class="menuM">
+    </div>
+    <div class="menuR">
+        <span><a href="positioning.html">人员定位</a></span>
+        <span><a href="monitoring.html">监控管理</a></span>
+        <span><a href="qualitySafetyPush.html">工艺安全质量推送</a></span>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row fill-h">
+            <!--左侧-->
+            <div class="col-lg-55 fill-h">
+                <!--工长信息-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc">
+                            <div class="fill-h-20 title1">
+                                工长信息
+                            </div>
+                            <div class="tool" style="padding: 10px 12px;">
+                                    <div class="topMaster" style="color: #fff;overflow-y:hidden;overflow-x:auto;white-space: nowrap;border-bottom: 1px #ccc dashed;">
+                                    </div>
+                                    <div class="info">
+                                        <img id="picture" src="" alt="" style="width: 19%;height: 100%;display: inline-block">
+                                        <ul class="list">
+                                            <li><span>施工队伍负责人姓名：</span><span id="foreman"></span></li>
+                                            <li><span>公司名：</span><span id="company"></span></li>
+                                            <li><span>联系电话：</span><span id="phone"></span></li>
+                                            <li><span>居住地址：</span><span id="address"></span></li>
+                                            <li><span>负责区域：</span><span id="territory"></span></li>
+                                            <li><span>施工协作队伍：</span><span id="team"></span></li>
+                                            <li><span>现有施工人数：</span><span id="number"></span></li>
+                                            <li><span>外来务工人员：</span><span id="foreignd"></span></li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--劳务人员信息-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc">
+                            <div class="fill-h-20 title1">
+                                劳务人员信息
+                            </div>
+                            <div class="tool info1" style="padding: 0 12px;">
+                                <table class="layui-table" lay-skin="nob" id="record0" lay-filter="record" style="background-color:rgba(255,255,255,0);"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--出勤记录-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc" >
+                            <div class="fill-h-20 title1">
+                                出勤记录
+                            </div>
+                            <div class="tool" style="padding: 0 12px;">
+                                <div class="attendance" id="attendance" style="height: 100%;width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--右侧-->
+            <div class="col-lg-45 fill-h">
+                <!--出勤状态-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc">
+                            <div class="fill-h-20 title1">
+                                出勤状态
+                            </div>
+                            <div class="tool">
+                                <div class="state" id="state" style="width: 50%;height: 100%;float:left;"></div>
+                                <div style="width: 49%;height: 100%;float:left;">
+                                    <table class="layui-table" lay-skin="nob" id="stateTable" lay-filter="stateTable" style="background-color:rgba(255,255,255,0);"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--当日在场人数-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc">
+                            <div class="fill-h-20 title1">
+                                当日在场人数
+                            </div>
+                            <div class="tool"  style="padding: 0 12px;">
+                                <div class="presence" id="presence" style="width: 100%;height: 100%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--进出场记录-->
+                <div class="xpanel-wrapper xpanel-wrapper-33">
+                    <div class="xpanel">
+                        <div class="fill-h-100 xpanel-bg1 gbc" >
+                            <div class="fill-h-20 title1">
+                                进出场记录
+                            </div>
+                            <div class="tool" style="padding: 0 12px;">
+                                <table class="layui-table" lay-skin="nob" id="record" lay-filter="record" style="background-color:rgba(255,255,255,0);"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/layui/layui.all.js"></script>
+<script type="text/javascript" src="../js/layui/layui.js"></script>
+<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.js"></script>
+<script type="text/javascript" src="../js/echarts-3.8.5.min.js"></script>
+<script type="text/javascript" src="js/labor.js"></script>
+<script  type="text/javascript">
+    $(function () {
+        if (!sessionStorage.getItem("login")) {
+            window.location.href = "../login.html"
+        }
+    });
+    $(".topRightBtn").click(function(){
+        window.location.href = "../system/index.html";
+    });
+</script>
+</body>
+</html>

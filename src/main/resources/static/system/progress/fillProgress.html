@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>进度录入</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../js/layui/style/admin.css" media="all">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        #container{
+            height: 95%;
+        }
+        .main {
+            display: inline-flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 99%;
+            width: 99.4%
+        }
+        .model {
+            flex: 1
+        }
+        .title {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background: #fff;
+            padding-left: 13px;
+            font-size: 13px;
+        }
+        .layui-breadcrumb{
+            padding: 5px 15px;
+            display: inline-block;
+        }
+        .layui-breadcrumb span{
+            font-size: 18px;
+            /*color: #000;*/
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .layui-breadcrumb .active{
+            color: #5FB878;
+        }
+        .layui-layer-page .layui-layer-content {
+            overflow: visible !important;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span class="layui-breadcrumb">
+        <!--<span class="active">A区</span>-->
+        <!--<span>B区</span>-->
+        <!--<span>芳林园</span>-->
+    </span>
+</div>
+<div id="container">
+    <div class="main">
+        <div class='model' id="actualBox"></div>
+    </div>
+</div>
+<div id="actualForm" style="display: none;">
+    <form class="layui-form" action="" style="padding-right: 30px;">
+        <div class="layui-form-item" style="margin-top: 15px;">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-block">
+                <input id="actualTime" type="text" name="actualTime" required  lay-verify="required" placeholder="请选择结束时间" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-top: 15px;">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <select class="state" name="state" lay-verify="required">
+                    <option value="">请选择状态</option>
+                    <option value="0">完成</option>
+                    <!--<option value="1">延期</option>-->
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="actualSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader@latest-release.js" charset="utf-8"></script>
+<script>
+    layui.use(['element','layer','form','laydate'], function(){
+        var element = layui.element;
+        var layer = layui.layer;
+        var form = layui.form;
+        var laydate = layui.laydate;
+
+        //获取工点名
+        $.ajax({
+            url: '../../Schedule/findWorkPointManage',
+            type: 'get',
+            async: false,
+            dataType: 'json',
+            success: function (res) {
+                var data = res.data;
+                for(var i = 0;i < data.length;i ++){
+                    if(i == 0){
+                        $(".layui-breadcrumb").append('<span class="active">'+data[i].workPoint+'</span>');
+                    }else{
+                        $(".layui-breadcrumb").append('<span>'+data[i].workPoint+'</span>');
+                    }
+                }
+            }
+        });
+        //工点点击
+        $(".layui-breadcrumb span").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+            $("#actualBox").html('');
+            renderModel($(this).html());
+        });
+        //根据工点名渲染模型
+        renderModel($(".active").html());
+
+        //点击的id
+        var objectId;
+
+        laydate.render({
+            elem: '#actualTime'
+        });
+
+        //填写实际进度
+        form.on('submit(actualSubmit)', function(data){
+            console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+            $.ajax({
+                url: '../../Schedule/updateSchedule',
+                type: 'get',
+                data: {
+                    sId: objectId,//id
+                    workPoint: $(".active").html(),//工点
+                    over2: data.field.actualTime//实际时间
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.data == "成功") {
+                    	layer.close(layer.index);
+                    	$("#actualBox").html('');
+                        renderModel($(".active").html());
+                    }
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        //渲染模型
+        function renderModel(data){
+            console.log(data);
+            var actualBoxArr = [];
+            //var actualBoxArr = [500163,500165,496391,500106,500108,500202,463376,496037,496035,496033,496031,496029,496027];
+            var token = '';
+            $.ajax({
+                url: '../../Schedule/findSchedule',
+                type: 'get',
+                async: false,
+                dataType: 'json',
+                data: {
+                    workPoint: data
+                },
+                success: function (res) {
+                    var data2 = res.data1;//实际模型状态信息
+                    for(var i = 0;i < data2.length;i++){
+                        actualBoxArr.push(data2[i].sId);
+                    }
+                }
+            });
+            $.ajax({
+                url: '../../Schedule/findViewToken',
+                type: 'get',
+                async: false,
+                dataType: 'json',
+                data: {
+                    workPoint: data
+                },
+                success: function (res) {
+                    token = JSON.parse(res.data).data;//获取模型的token
+                }
+            });
+            if(token != ''){
+                var actual3D;
+                var actualApp;
+                var viewToken = token;
+                // var viewToken = '4e9b8c892f6b42b39b1a68a66c360370';
+
+                // 初始化显示组件
+                var options = new BimfaceSDKLoaderConfig();
+                options.viewToken = viewToken;
+
+                BimfaceSDKLoader.load(options, actualSuccessCallback, actualFailureCallback);
+
+                function actualSuccessCallback(viewMetaData) {
+                    if (viewMetaData.viewType == "3DView") {
+                        // ======== 判断是否为3D模型 ========
+                        // 获取DOM元素
+                        var dom4restore = document.getElementById('actualBox');
+                        var webAppConfig = new Glodon.Bimface.Application.WebApplication3DConfig();
+                        webAppConfig.domElement = dom4restore;
+                        // 创建WebApplication
+                        actualApp = new Glodon.Bimface.Application.WebApplication3D(webAppConfig);
+                        // 添加待显示的模型
+                        actualApp.addView(viewToken);
+                        // 从WebApplication获取viewer3D对象
+                        actual3D = actualApp.getViewer();
+                        // 监听添加view完成的事件
+                        actual3D.addEventListener(Glodon.Bimface.Viewer.Viewer3DEvent.ViewAdded, function () {
+                            //调用viewer3D对象的Method，可以继续扩展功能
+                            //自适应屏幕大小
+                            window.onresize = function () {
+                                actual3D.resize(document.documentElement.clientWidth, document.documentElement.clientHeight - 40)
+                            };
+                            //渲染3D模型
+                            actualOverrideComponentsColorById();
+                            actual3D.render();
+                        });
+                        actual3D.addEventListener(Glodon.Bimface.Viewer.Viewer3DEvent.MouseClicked, function (objectdata) {
+                            console.log(objectdata);
+                            objectId = objectdata.objectId;
+                            layer.open({
+                                type: 1,
+                                title: "实际进度录入",
+                                area: ['500px', '220px'],
+                                content: $('#actualForm')
+                            });
+                        });
+                    }
+                }
+
+                function actualFailureCallback(error) {
+                    console.log(error);
+                }
+
+                //********************根据Id给构件着色*********************
+                function actualOverrideComponentsColorById() {
+                    var color1 = new Glodon.Web.Graphics.Color("#00FF00", 0.8);
+                    actual3D.overrideComponentsColorById(actualBoxArr, color1);
+                    actual3D.render();
+                }
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>

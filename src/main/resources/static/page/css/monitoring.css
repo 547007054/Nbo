@@ -1,0 +1,47 @@
+.box{
+    width: 98%;
+    height: 99%;
+    margin-left: 1%;
+}
+.box div{
+    display: inline-block;
+}
+.box div img{
+    width: 100%;
+    height: 100%;
+}
+/*一个*/
+.w100h100{
+    width: 100%;
+    height: 100%;
+}
+/*两个*/
+.w50h100{
+    width: 49.8%;
+    height: 100%;
+}
+/*三到四个*/
+.w50h50{
+    width: 49.8%;
+    height: 50%;
+}
+/*四到六个*/
+.w33h50{
+    width: 33.1%;
+    height: 50%;
+}
+/*六到九个*/
+.w33h33{
+    width: 33.1%;
+    height: 33.1%;
+}
+/*九到十二个*/
+.w25h33{
+    width: 24.74%;
+    height: 32.85%;
+}
+/*十二到十六个*/
+.w25h25{
+    width: 24.74%;
+    height: 24.45%;
+}

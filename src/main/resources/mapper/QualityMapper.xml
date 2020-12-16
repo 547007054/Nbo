@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.yh.user.mapper.QualityMapper">
+
+
+    <select id="findAll" resultType="Construction" >
+        SELECT date,
+        week,
+        weatherD,
+        windD,
+        temperatureD,
+        remarkD,
+        weatherN,
+        windN,
+        temperatureN,
+        remarkN,
+        productionRecord,
+        workRecord,
+        inRecord,
+        principal,
+        recorder FROM Construction
+    </select>
+
+    <insert id="added" parameterType="com.cn.yh.user.entity.Construction">
+		insert into Construction (
+		date,
+        week,
+        weatherD,
+        windD,
+        temperatureD,
+        remarkD,
+        weatherN,
+        windN,
+        temperatureN,
+        remarkN,
+        productionRecord,
+        workRecord,
+        inRecord,
+        principal,
+        recorder
+		)
+		values
+		(
+		#{date},
+		#{week},
+		#{weatherD},
+		#{windD},
+		#{temperatureD},
+		#{remarkD},
+		#{weatherN},
+		#{windN},
+		#{temperatureN},
+		#{remarkN},
+		#{productionRecord},
+		#{workRecord},
+		#{inRecord},
+		#{principal},
+		#{recorder}
+		)
+	</insert>
+
+<!--    <update id="updateOne" parameterType="com.cn.yh.user.entity.Construction">-->
+
+<!--    </update>-->
+
+</mapper>

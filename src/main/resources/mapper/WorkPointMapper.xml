@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.yh.user.mapper.WorkPointMapper">
+
+	<select id="queryName" resultType="WorkPointManage">
+		select * from WorkPointManage where
+		workPoint=#{workPoint}
+	</select>
+
+    <select id="findWorkPointManage" resultType="WorkPointManage">
+		select * from WorkPointManage
+	</select>
+
+    <select id="findByWorkPoint" resultType="String">
+		select modelNameN from WorkPointManage where workPoint = #{workPoint}
+	</select>
+
+    <select id="findPoint" resultType="Integer">
+		select count(*) from WorkPointManage where  workPoint =#{workPoint}
+	</select>
+
+    <select id="findWork" resultType="String">
+		select distinct workPoint from WorkPointManage
+	</select>
+
+    <insert id="addWorkPoint"
+            parameterType="WorkPointManage">
+		insert into WorkPointManage (
+		workPoint,
+		modelNameN,
+		drawingN
+		)
+		values
+		(
+		#{workPoint},
+		#{modelNameN},
+		#{drawingN}
+		)
+	</insert>
+
+    <delete id="deletePoint" parameterType="Integer">
+		delete from WorkPointManage where
+		id=#{id}
+	</delete>
+
+</mapper>
