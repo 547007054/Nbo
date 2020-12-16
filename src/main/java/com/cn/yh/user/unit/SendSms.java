@@ -49,7 +49,7 @@ public class SendSms {
         //条件必填,国内短信关注,当templateId指定的模板类型为通用模板时生效且必填,必须是已审核通过的,与模板类型一致的签名名称
         //国际/港澳台短信不用关注该参数
 
-        String signature = "华为云测试1"; //签名名称
+        String signature = "华为云测试"; //签名名称
 
 
 
