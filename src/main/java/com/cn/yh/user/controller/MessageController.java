@@ -15,9 +15,7 @@ public class MessageController {
     public Map<String,Object> sendMessage() throws Exception {
         Map<String,Object> map =new HashMap<>();
         SendSms SendSms = new SendSms();
-        SendSms.sendMessage("123");
-
-
+        SendSms.sendMessage("123456");
 
         map.put("data", "成功" );
 
